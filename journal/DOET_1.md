@@ -1,2 +1,3 @@
 Chapter 1
+
 I've read this in my undergrad, but it's been 8 years so this is a nice refresher. The first chapter contains mostly things I already remember such as terminology describing principles of interaction(signifier, affordances, feedback, experience, etc). It introduces broader theory such as importance of human centered design, and technology paradox is touched on, the fact that as our experiences become more richer, they also become more complex and the user experience can suffer. He emphasizes that the main challenge of design is combining the various facets of price, appearance, function, engineering, etc, into something cohesive that satisfies all requirements.
