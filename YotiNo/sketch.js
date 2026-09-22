@@ -11,10 +11,10 @@ let pressed = false;
 async function setup() {
   createCanvas(720,1280);
     //image loading
-    junkfoodImg = await loadImage('/assets/junkfood.png');
-    lazyImg = await loadImage('/assets/lazy.png');
-    liftingImg = await loadImage('/assets/lifting.png');
-    runningImg = await loadImage('/assets/running.png');
+    junkfoodImg = await loadImage('assets/junkfood.png');
+    lazyImg = await loadImage('assets/lazy.png');
+    liftingImg = await loadImage('assets/lifting.png');
+    runningImg = await loadImage('assets/running.png');
     good = [liftingImg, runningImg];
     bad = [junkfoodImg, lazyImg];  
     images = [liftingImg, runningImg, junkfoodImg, lazyImg];
