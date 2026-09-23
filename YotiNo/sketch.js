@@ -32,7 +32,7 @@ function draw() {
   strokeWeight(10);
   stroke("Black");
   fill(255, 105, 97);
-    if(mouseX >240 && mouseX < 500 && mouseY > 900 && mouseY < 1100){
+    if(mouseX >240 && mouseX < 500 && mouseY > 1000 && mouseY < 1200){
       ellipse(width/2,height*.85, 170);
     }else{     
       ellipse(width/2,height*.85, 150);
@@ -120,7 +120,7 @@ function timeText(){
 
 function mousePressed() {
 
-  if(mouseX >240 && mouseX < 500 && mouseY > 900 && mouseY < 1100){
+  if(mouseX >240 && mouseX < 500 && mouseY > 1000 && mouseY < 1200){
     print("pressed inside")
     pressed = true;
   }
