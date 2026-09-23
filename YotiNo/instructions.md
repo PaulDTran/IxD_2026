@@ -1,5 +1,5 @@
 
-Yoti is trying to be a good yeti, but it's hard...
+Yoti is trying to get in better shape, but it's hard...
 
 Use the "NO!" button to stop him from doing bad things!
 
