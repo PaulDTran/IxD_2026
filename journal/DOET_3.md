@@ -1,4 +1,4 @@
-#Chapter 4 part 1
+# Chapter 4 part 1
 
 This chapter introduces constraints and practical applications of affordances, signifiers. Unlike affordances and signifiers which determine or represent what an object or product can do, constraints shape the usage through what cannot be done. He uses a lego motorcycle as an example, which only 2 parts with duplicates, making it so assembling feels natural through the constraints of which parts fit together.
 
