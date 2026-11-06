@@ -1,23 +1,10 @@
-// YOTI'S TABLE
-// Read by feature: each section keeps its appearance and behavior together.
-// The p5 callbacks below connect those sections to the game loop and mouse.
-
-// 1. SHARED GAME SETTINGS
-// ---------------------------------------------------------------------
 const gameHeight = 940;
 const calorieGoal = 2000;
-// These affect both number colors and Yoti's arms.
 const armThresholds = { protein: 100, carbs: 200 };
 const carbWarning = 150;
 const colors = {
   ink: "#533e35", muted: "#8a7161", paper: "#fff7eb", calories: "#d76d50"
 };
-
-// 2. P5 CALLBACKS: STARTUP, DRAWING, AND INPUT
-// ---------------------------------------------------------------------
-
-// p5 calls these automatically. Each sends work to the relevant feature.
-
 function preload() {
   data = loadTable(url, "csv", "header");
   loadFoodImages();
