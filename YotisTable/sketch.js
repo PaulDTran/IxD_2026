@@ -174,7 +174,6 @@ function buildFoodGroups() {
   foodsByCategory = {};
   for (let row of data.rows) {
     const category = row.getString("Category").trim();
-    // Only use the nine categories with food images.
     if (!categoryImages[category]) continue;
     const food = {
       name: row.getString("Food"),
