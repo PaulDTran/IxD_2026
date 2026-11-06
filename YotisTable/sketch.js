@@ -3,7 +3,10 @@ let calorieGoal = 2000;
 let armThresholds = { protein: 100, carbs: 200 };
 let carbWarning = 150;
 let colors = {
-  ink: "#533e35", muted: "#8a7161", paper: "#fff7eb", calories: "#d76d50"
+  ink: "#533e35",
+  muted: "#8a7161",
+  paper: "#fff7eb",
+  calories: "#d76d50"
 };
 function preload() {
   data = loadTable(url, "csv", "header");
