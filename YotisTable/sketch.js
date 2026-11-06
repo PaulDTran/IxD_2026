@@ -1,8 +1,8 @@
-const gameHeight = 940;
-const calorieGoal = 2000;
-const armThresholds = { protein: 100, carbs: 200 };
-const carbWarning = 150;
-const colors = {
+let gameHeight = 940;
+let calorieGoal = 2000;
+let armThresholds = { protein: 100, carbs: 200 };
+let carbWarning = 150;
+let colors = {
   ink: "#533e35", muted: "#8a7161", paper: "#fff7eb", calories: "#d76d50"
 };
 function preload() {
@@ -12,7 +12,7 @@ function preload() {
 }
 
 function setup() {
-  const canvas = createCanvas(960, gameHeight);
+  let canvas = createCanvas(960, gameHeight);
   canvas.parent("game");
   canvas.attribute("tabindex", "0");
   textFont("Roboto");
@@ -42,10 +42,6 @@ function mouseReleased() {
   finishFoodDrag();
 }
 
-function keyPressed() {
-  handleRestartKey();
-}
-
 //title text
 function drawHeader() {
   noStroke();
@@ -62,10 +58,10 @@ function drawHeader() {
 }
 
 //restart button
-const restartButton = { x: 800, y: 42, width: 120, height: 38 };
+let restartButton = { x: 800, y: 42, width: 120, height: 38 };
 
 function drawRestartButton() {
-  const button = restartButton;
+  let button = restartButton;
   noStroke();
   fill("#f0e3ce");
   rect(button.x, button.y, button.width, button.height);
@@ -77,8 +73,8 @@ function drawRestartButton() {
 }
 
 function handleRestartClick() {
-  const button = restartButton;
-  const inside = mouseX >= button.x && mouseX <= button.x + button.width &&
+  let button = restartButton;
+  let inside = mouseX >= button.x && mouseX <= button.x + button.width &&
     mouseY >= button.y && mouseY <= button.y + button.height;
   if (!inside) return false;
   resetGame();
@@ -91,7 +87,7 @@ function resetGame() {
   eaten = [];
   options = [chooseFood(), chooseFood(), chooseFood()];
   dragging = -1;
-  lastFedAt = -1000;
+  lastFedFrame = -1000;
   roundStartedFrame = frameCount;
   smileFramesLeft = 0;
   message = "Feed Yoti by dragging some food to him!";
@@ -115,14 +111,14 @@ function drawNutrition() {
   fill("#e6cdb2");
   rect(62, 170, 836, 20);
   fill(colors.calories);
-  const progress = constrain(totals.calories / calorieGoal, 0, 1);
+  let progress = constrain(totals.calories / calorieGoal, 0, 1);
   if (progress > 0) rect(62, 170, 836 * progress, 20);
-  const metrics = [
+  let metrics = [
     { key: "protein", title: "Protein", x: 40 },
     { key: "carbs", title: "Carbs", x: 685 }
   ];
   for (let metric of metrics) {
-    const value = totals[metric.key];
+    let value = totals[metric.key];
     fill("#f4eddf");
     rect(metric.x, 267, 235, 122);
     fill(colors.muted);
@@ -147,8 +143,8 @@ function drawNutrition() {
 }
 
 //food data
-const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRwAS-B0K5BaULJHw7tFGcUA6J8T7Dm3bZLMgzqo94Dl_JsBFc6PzaKVkT1hi9bfQj20p8TFuatlMTh/pub?gid=1168895770&single=true&output=csv";
-const categoryImages = {
+let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRwAS-B0K5BaULJHw7tFGcUA6J8T7Dm3bZLMgzqo94Dl_JsBFc6PzaKVkT1hi9bfQj20p8TFuatlMTh/pub?gid=1168895770&single=true&output=csv";
+let categoryImages = {
   "Breads, cereals, fastfood,grains": "grains",
   "Dairy products": "dairy",
   "Desserts, sweets": "sweets",
@@ -173,9 +169,9 @@ function loadFoodImages() {
 function buildFoodGroups() {
   foodsByCategory = {};
   for (let row of data.rows) {
-    const category = row.getString("Category").trim();
+    let category = row.getString("Category").trim();
     if (!categoryImages[category]) continue;
-    const food = {
+    let food = {
       name: row.getString("Food"),
       measure: row.getString("Measure"),
       category: category,
@@ -191,13 +187,13 @@ function buildFoodGroups() {
 
 function chooseFood() {
   // Choose a category first to give every category the same chance.
-  const category = random(categories);
+  let category = random(categories);
   return random(foodsByCategory[category]);
 }
 
 //categories
-const plates = [{ x: 505, y: 1835 }, { x: 1065, y: 1835 }, { x: 1620, y: 1835 }];
-const categoryLabels = {
+let plates = [{ x: 505, y: 1835 }, { x: 1065, y: 1835 }, { x: 1620, y: 1835 }];
+let categoryLabels = {
   "Breads, cereals, fastfood,grains": "Grains & breads",
   "Drinks,Alcohol, Beverages": "Drinks & beverages",
   "Meat, Poultry": "Meat & poultry"
@@ -210,8 +206,8 @@ function platePosition(slot) {
 }
 
 function drawFoodOption(food, slot) {
-  const plate = platePosition(slot);
-  const iconSize = insideFoodOption(slot, mouseX, mouseY) ? 64 * 1.2 : 64;
+  let plate = platePosition(slot);
+  let iconSize = insideFoodOption(slot, mouseX, mouseY) ? 64 * 1.2 : 64;
   if (dragging !== slot) image(foodImages[food.category], plate.x, plate.y - 6, iconSize, iconSize);
   noStroke();
   fill("#fffcf5");
@@ -249,9 +245,9 @@ function drawFoodOptions() {
 }
 
 function insideFoodOption(slot, x, y) {
-  const plate = platePosition(slot);
-  const onPlate = ((x - plate.x) / 82) ** 2 + ((y - plate.y) / 58) ** 2 <= 1;
-  const onLabel = x >= plate.x - 85 && x <= plate.x + 85 && y >= 720 && y <= 854;
+  let plate = platePosition(slot);
+  let onPlate = ((x - plate.x) / 82) ** 2 + ((y - plate.y) / 58) ** 2 <= 1;
+  let onLabel = x >= plate.x - 85 && x <= plate.x + 85 && y >= 720 && y <= 854;
   return onPlate || onLabel;
 }
 
@@ -293,12 +289,12 @@ function drawFeedingMessage() {
 
 function feed(slot) {
   if (isGameOver()) return;
-  const food = options[slot];
+  let food = options[slot];
   totals.calories += food.calories;
   totals.protein += food.protein;
   totals.carbs += food.carbs;
   eaten.push(food);
-  lastFedAt = millis();
+  lastFedFrame = frameCount;
   smileFramesLeft = 50;
   message = "Yoti gobbled up " + food.name + "! More please!";
   if (!isGameOver()) options[slot] = chooseFood();
@@ -310,12 +306,12 @@ function isGameOver() {
 }
 
 //layer assets
-const yotiLayers = ["Body", "Table", "Plates", "Normal_arms", "Fat_arms",
+let yotiLayers = ["Body", "Table", "Plates", "Normal_arms", "Fat_arms",
   "Muscular_arms", "Normal_face", "Blink_face", "Smile_face"];
-const art = { width: 2064, height: 2752, scale: 0.32, x: 149.76, y: 65 };
-const character = { x: 496, y: 385, radius: 112 };
+let art = { width: 2064, height: 2752, scale: 0.32, x: 149.76, y: 65 };
+let character = { x: 496, y: 385, radius: 112 };
 let yotiImages = {};
-let lastFedAt = -1000;
+let lastFedFrame = -1000;
 let roundStartedFrame = 0;
 let smileFramesLeft = 0;
 
@@ -327,13 +323,13 @@ function loadYotiImages() {
 
 function drawCharacter() {
   // Repeat every 120 frames: grow for 60 frames, then shrink for 60.
-  const breathFrame = frameCount % 120;
+  let breathFrame = frameCount % 120;
   let breath;
   if (breathFrame < 60) breath = 1 + breathFrame * 0.0002;
   else breath = 1 + (120 - breathFrame) * 0.0002;
-  const munch = max(0, 1 - (millis() - lastFedAt) / 300) * 0.012;
-  const characterScale = breath + munch;
-  const widthScale = 1 + constrain((totals.carbs - armThresholds.carbs) / 100, 0, 1) * 0.2;
+  let munch = max(0, 1 - (frameCount - lastFedFrame) / 18) * 0.012;
+  let characterScale = breath + munch;
+  let widthScale = 1 + constrain((totals.carbs - armThresholds.carbs) / 100, 0, 1) * 0.2;
   drawArtwork("Body", characterScale, widthScale);
   drawArtwork(faceLayer(), characterScale, widthScale);
   if (smileFramesLeft > 0) smileFramesLeft--;
@@ -343,8 +339,8 @@ function drawCharacter() {
 }
 
 function armLayer() {
-  const proteinHigh = totals.protein > armThresholds.protein;
-  const carbsHigh = totals.carbs >= armThresholds.carbs;
+  let proteinHigh = totals.protein > armThresholds.protein;
+  let carbsHigh = totals.carbs >= armThresholds.carbs;
   if (proteinHigh && (!carbsHigh || totals.protein / armThresholds.protein >= totals.carbs / armThresholds.carbs)) return "Muscular_arms";
   return carbsHigh ? "Fat_arms" : "Normal_arms";
 }
@@ -357,9 +353,9 @@ function faceLayer() {
 
 function drawArtwork(name, breathingScale = 1, widthScale = 1) {
   // Body, face, and arms share this pivot and image registration.
-  const pivot = { x: 496, y: 430 };
-  const centerX = art.x + art.width * art.scale / 2;
-  const centerY = art.y + art.height * art.scale / 2;
+  let pivot = { x: 496, y: 430 };
+  let centerX = art.x + art.width * art.scale / 2;
+  let centerY = art.y + art.height * art.scale / 2;
   image(yotiImages[name],
     pivot.x + (centerX - pivot.x) * breathingScale * widthScale,
     pivot.y + (centerY - pivot.y) * breathingScale,
@@ -372,7 +368,7 @@ function insideCharacter(x, y) {
 }
 
 //show table summary at end
-const resultsY = 750;
+let resultsY = 750;
 
 function drawResults() {
   fill("#f1e5cd");
@@ -384,8 +380,8 @@ function drawResults() {
   textAlign(RIGHT, BASELINE);
   text("kcal          Protein        Carbs", 890, resultsY + 28);
   for (let i = 0; i < eaten.length; i++) {
-    const y = resultsY + 57 + i * 25;
-    const food = eaten[i];
+    let y = resultsY + 57 + i * 25;
+    let food = eaten[i];
     image(foodImages[food.category], 74, y - 5, 20, 20);
     fill(colors.ink);
     textSize(13);
