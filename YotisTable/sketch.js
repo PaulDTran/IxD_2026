@@ -14,7 +14,6 @@ function preload() {
 function setup() {
   const canvas = createCanvas(960, gameHeight);
   canvas.parent("game");
-  canvas.attribute("aria-label", "Yoti's Table. Drag food from a plate onto Yoti. Press R to restart.");
   canvas.attribute("tabindex", "0");
   textFont("Roboto");
   imageMode(CENTER);
