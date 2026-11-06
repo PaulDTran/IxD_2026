@@ -3,7 +3,10 @@ let calorieGoal = 2000;
 let armThresholds = { protein: 100, carbs: 200 };
 let carbWarning = 150;
 let colors = {
-  ink: "#533e35", muted: "#8a7161", paper: "#fff7eb", calories: "#d76d50"
+  ink: "#533e35",
+  muted: "#8a7161",
+  paper: "#fff7eb",
+  calories: "#d76d50"
 };
 function preload() {
   data = loadTable(url, "csv", "header");
@@ -19,18 +22,6 @@ function setup() {
   imageMode(CENTER);
   buildFoodGroups();
   resetGame();
-}
-
-function draw() {
-  background(colors.paper);
-  drawHeader();
-  drawRestartButton();
-  drawNutrition();
-  drawCharacter();
-  drawFeedingMessage();
-  if (!isGameOver()) drawFoodOptions();
-  else drawResults();
-  drawDraggedFood();
 }
 
 function mousePressed() {
@@ -186,7 +177,7 @@ function buildFoodGroups() {
 }
 
 function chooseFood() {
-  // Choose a category first to give every category the same chance.
+  // randomize by category for same chance
   let category = random(categories);
   return random(foodsByCategory[category]);
 }
@@ -199,8 +190,9 @@ let categoryLabels = {
   "Meat, Poultry": "Meat & poultry"
 };
 let options = [];
-let dragging = -1; // No food selected. Slots 0, 1, and 2 are the three plates.
+let dragging = -1;
 
+//"plate" slots
 function platePosition(slot) {
   return { x: art.x + plates[slot].x * art.scale, y: art.y + plates[slot].y * art.scale };
 }
@@ -347,7 +339,7 @@ function armLayer() {
 
 function faceLayer() {
   if (isGameOver() || smileFramesLeft > 0) return "Smile_face";
-  // Blink for final 12 frames of each 252-frame cycle.
+  // Blink for final 12 frames of 252
   return (frameCount - roundStartedFrame) % 252 >= 240 ? "Blink_face" : "Normal_face";
 }
 
@@ -400,4 +392,25 @@ function drawResults() {
 
 function resultPanelHeight() {
   return 56 + eaten.length * 25;
+}
+
+function draw() {
+  background(colors.paper);
+  drawHeader();
+  drawRestartButton();
+  drawNutrition();
+  drawCharacter();
+  drawFeedingMessage();
+  if (!isGameOver()) drawFoodOptions();
+  else drawResults();
+  drawDraggedFood();
+
+  // References
+  noStroke();
+  fill(colors.muted);
+  textSize(10);
+  textStyle(NORMAL);
+  textAlign(LEFT, BASELINE);
+  text("Dataset used: https://www.kaggle.com/datasets/niharika41298/nutrition-details-for-most-common-foods", 40, height - 30);
+  text("Repo link: https://github.com/PaulDTran/IxD_2026/tree/main/YotisTable", 40, height - 14);
 }
